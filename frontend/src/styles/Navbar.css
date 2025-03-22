@@ -1,0 +1,15 @@
+.navbar {
+  background-color: #e9c2c2;
+  color: #c38b8b;
+  font-family: Impact;
+  padding: 16px 32px;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  box-sizing: border-box;
+}
+
+.navbar-title {
+  font-size: 24px;
+  margin: 0;
+}

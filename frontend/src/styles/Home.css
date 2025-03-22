@@ -1,0 +1,41 @@
+/* styles/Home.css */
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    min-height: 60vh;
+    text-align: center;
+    font-family: Impact, sans-serif;
+  }
+  
+  .home-content h1 {
+    font-size: 48px;
+    color: #C38B8B;
+    margin: 0;
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .button-container button {
+    background-color: #C38B8B;
+    color: white;
+    font-family: Impact, sans-serif;
+    font-size: 14px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .button-container button:hover {
+    transform: scale(1.05);
+  }
+  
