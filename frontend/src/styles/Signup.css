@@ -1,0 +1,126 @@
+/* styles/Signup.css */
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  font-family: Impact, sans-serif;
+  color: #C38B8B;
+}
+
+.signup-container h2 {
+  font-size: 48px;
+  margin-bottom: 30px;
+  color: #C38B8B;
+}
+
+/* Error text */
+.error,
+.password-error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Form fields */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: 400px;
+}
+
+input {
+  padding: 12px 16px;
+  background-color: #E9C2C2;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #C38B8B;
+  font-family: Impact, sans-serif;
+}
+
+input::placeholder {
+  color: #C38B8B;
+  opacity: 1;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #C38B8B; /* or any custom highlight */
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-input-container input {
+  width: 100%;
+}
+
+.eye-icon {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
+}
+
+/* Password strength */
+.password-strength {
+  font-size: 14px;
+  text-align: center;
+  margin: -10px 0 10px;
+}
+
+.password-strength.weak {
+  color: #853e36;
+}
+
+.password-strength.medium {
+  color: #cd915d;
+}
+
+.password-strength.strong {
+  color: #87b69b;
+}
+
+/* Button */
+button[type="submit"] {
+  padding: 12px;
+  background-color: #C38B8B;
+  color: white;
+  font-family: Impact, sans-serif;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #aa6d6d;
+}
+
+/* Bottom text */
+.signup-container p {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #B48295;
+  text-align: center;
+}
+
+.signup-container a {
+  color: #C38B8B;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-container a:hover {
+  text-decoration: underline;
+}
