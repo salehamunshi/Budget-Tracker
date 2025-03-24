@@ -1,0 +1,244 @@
+/* General Dashboard Layout */
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 20px;
+  font-family: Impact, sans-serif;
+  color: #c38b8b;
+}
+
+/* Card Styles */
+.card {
+  font-family: Impact, sans-serif;
+  color: #c38b8b;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Net Worth Card */
+.net-worth {
+  grid-column: span 3;
+  text-align: center;
+  font-family: Impact, sans-serif;
+  color: #c38b8b;
+}
+
+.net-worth h3 {
+  margin-bottom: 10px;
+}
+
+.net-worth p {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #c38b8b;
+}
+
+/* Debit and Credit Card Styles */
+.debit-card,
+.credit-card {
+  margin-bottom: 10px;
+  display: flex; /* Use flexbox for horizontal layout */
+  justify-content: space-between; /* Space between name and price */
+  align-items: center; /* Align the items vertically */
+}
+
+.debit-card h4,
+.credit-card h4 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-right: 10px; /* Add some space between the name and price */
+}
+
+.debit-card p,
+.credit-card p {
+  font-size: 1.1rem;
+  color: #c38b8b; /* Ensure numbers (balances) have the same color as other text */
+  margin: 0; /* Remove margin from <p> tags for better alignment */
+}
+
+.debit-card button,
+.credit-card button {
+  background-color: #c38b8b;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+/* Button Styling for Edit */
+button.edit-btn {
+  background-color: #c38b8b;
+  color: #c38b8b;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: auto;
+}
+
+button.edit-btn:hover {
+  background-color: #e0b3c0;
+}
+
+.add-btn {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  margin-top: 20px;
+  background-color: #c38b8b;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.add-btn:hover {
+  background-color: #c38b8b;
+}
+
+/* Transaction Styles */
+.transactions {
+  grid-column: span 3;
+}
+
+.transaction {
+  margin-bottom: 10px;
+}
+
+.transaction p {
+  font-size: 1rem;
+  color: #c38b8b;
+}
+
+.transaction button {
+  background-color: #c38b8b;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+.transaction button:hover {
+  background-color: #e0b3c0;
+}
+
+/* Popup Styles */
+.popup {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: white;
+  display: none; /* Initially hidden */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the popup */
+  width: 400px; /* Set a fixed width */
+  padding: 20px;
+  background: #c38b8b;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.popup.show {
+  display: block; /* Show the popup when class 'show' is added */
+}
+
+.popup .popup-content {
+  padding: 10px;
+}
+
+.popup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #a95c5c;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 50%;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.popup .close-btn:hover {
+  background: #b46f6f;
+}
+
+.popup h3 {
+  margin-top: 0;
+}
+
+.popup label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.popup input {
+  width: 100%;
+  padding: 8px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.popup .button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.popup button {
+  background-color: #e9c2c2;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+  gap: 10px;
+}
+
+.popup button:first-child {
+  width: auto;
+}
+
+.popup button:last-child {
+  margin-left: auto; /* Pushes the delete button to the right */
+  width: auto; /* Ensures the delete button isn't stretched */
+}
+
+.popup button:hover {
+  background-color: #dec1c1;
+}
+
+/* Add styling for the dropdown in Add Transaction */
+.popup select {
+  background-color: #e9c2c2;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: white;
+  width: 100%;
+  padding: 8px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #e9c2c2;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.popup select:focus {
+  border-color: #c38b8b;
+  outline: none;
+}
