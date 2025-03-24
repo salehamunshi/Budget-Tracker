@@ -6,6 +6,7 @@ const CreditCard = require("../models/CreditCard");
 const Transaction = require("../models/Transaction");
 const User = require("../models/User");
 
+// Basic user data
 router.get("/data", authMiddleware, async (req, res) => {
   try {
     const userData = await User.findById(req.user.id);
@@ -19,17 +20,16 @@ router.get("/data", authMiddleware, async (req, res) => {
   }
 });
 
-router.get("/dataWithDebitCards", authMiddleware, async (req, res) => {
+// Full user summary: cards + transactions
+router.get("/summary", authMiddleware, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
-
-    const debitCards = await DebitCard.find({ userId: user._id });
-    const creditCards = await CreditCard.find({ userId: user._id });
-    const transactions = await Transaction.find({ userId: user._id });
+    const debitCards = await DebitCard.find({ userId: req.user.id });
+    const creditCards = await CreditCard.find({ userId: req.user.id });
+    const transactions = await Transaction.find({ userId: req.user.id });
 
     res.json({ debitCards, creditCards, transactions });
   } catch (error) {
-    console.error("Error fetching user data with debit card:", error);
+    console.error("Error fetching user summary:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
