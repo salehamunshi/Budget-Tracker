@@ -28,7 +28,7 @@ const Dashboard = () => {
     }
 
     axios
-      .get("http://localhost:5001/api/user/dataWithDebitCards", {
+      .get("http://localhost:5001/api/user/summary", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -125,7 +125,7 @@ const Dashboard = () => {
       let response;
       if (editingItem) {
         response = await axios.put(
-          `http://localhost:5001/api/auth/debitCards/${editingItem._id}`,
+          `http://localhost:5001/api/debitCards/${editingItem._id}`,
           newDebitCard,
           {
             headers: {
@@ -135,7 +135,7 @@ const Dashboard = () => {
         );
       } else {
         response = await axios.post(
-          "http://localhost:5001/api/auth/debitCards",
+          "http://localhost:5001/api/debitCards",
           newDebitCard,
           {
             headers: {
@@ -160,7 +160,7 @@ const Dashboard = () => {
       if (editingItem) {
         // Update existing credit card
         response = await axios.put(
-          `http://localhost:5001/api/auth/creditCard/${editingItem._id}`,
+          `http://localhost:5001/api/creditCard/${editingItem._id}`,
           newCreditCard,
           {
             headers: {
@@ -171,7 +171,7 @@ const Dashboard = () => {
       } else {
         // Create new credit card
         response = await axios.post(
-          "http://localhost:5001/api/auth/creditCard",
+          "http://localhost:5001/api/creditCard",
           newCreditCard,
           {
             headers: {
@@ -204,7 +204,7 @@ const Dashboard = () => {
       if (editingItem) {
         // Update existing transaction
         response = await axios.put(
-          `http://localhost:5001/api/auth/transaction/${editingItem._id}`,
+          `http://localhost:5001/api/transaction/${editingItem._id}`,
           transactionData,
           {
             headers: {
@@ -215,7 +215,7 @@ const Dashboard = () => {
       } else {
         // Create new transaction
         response = await axios.post(
-          "http://localhost:5001/api/auth/transaction",
+          "http://localhost:5001/api/transaction",
           transactionData,
           {
             headers: {
@@ -236,7 +236,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://localhost:5001/api/auth/debitCards/${editingItem._id}`,
+        `http://localhost:5001/api/debitCards/${editingItem._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -255,7 +255,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://localhost:5001/api/auth/creditCard/${editingItem._id}`,
+        `http://localhost:5001/api/creditCard/${editingItem._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -274,7 +274,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://localhost:5001/api/auth/transaction/${editingItem._id}`,
+        `http://localhost:5001/api/transaction/${editingItem._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -293,7 +293,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:5001/api/user/dataWithDebitCards",
+        "http://localhost:5001/api/user/summary",
         {
           headers: {
             Authorization: `Bearer ${token}`,
