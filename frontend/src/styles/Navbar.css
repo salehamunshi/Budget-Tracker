@@ -5,11 +5,63 @@
   padding: 16px 32px;
   width: 100%;
   display: flex;
-  justify-content: left;
+  justify-content: space-between; /* push left + right */
   box-sizing: border-box;
+  align-items: center;
 }
 
-.navbar-title {
-  font-size: 24px;
+/* Group for logo + nav links */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #a96c6d;
   margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #c38b8b;
+  transition: color 0.2s ease;
+  font-size: 1rem;
+}
+
+.nav-links li a:hover {
+  color: #a96c6d;
+}
+
+/* Right side container for logout */
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.logout-button {
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  color: #c38b8b;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+.logout-button:hover {
+  color: #a96c6d;
 }

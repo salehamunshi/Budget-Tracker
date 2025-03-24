@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Layout from "../components/Layout"; 
+import Layout from "../components/Layout";
 import "../styles/Signup.css";
 
 const Signup = () => {
@@ -76,12 +76,17 @@ const Signup = () => {
     }
 
     try {
-      await axios.post("http://localhost:5001/api/auth/signup", {
+      const res = await axios.post("http://localhost:5001/api/auth/signup", {
         username: formData.username,
         email: formData.email,
         password: formData.password,
       });
-      navigate("/login");
+
+      // Assuming the API returns a token upon successful signup
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token); // Store token in localStorage
+        navigate("/login");
+      }
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong.");
     }
@@ -138,7 +143,7 @@ const Signup = () => {
               onChange={handleChange}
             />
             <span
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)} 
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               className="eye-icon"
             >
               {showConfirmPassword ? (
@@ -150,7 +155,9 @@ const Signup = () => {
           </div>
 
           {passwordStrength && (
-            <p className={`password-strength ${passwordStrength.toLowerCase()}`}>
+            <p
+              className={`password-strength ${passwordStrength.toLowerCase()}`}
+            >
               Strength: {passwordStrength}
             </p>
           )}
