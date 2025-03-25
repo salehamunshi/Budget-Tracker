@@ -20,7 +20,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/debitCard", debitCardRoutes);
 app.use("/api/creditCard", creditCardRoutes);
-app.use("/api/transaction", transactionRoutes);
+app.use("/api/transactions", transactionRoutes);
 
 // MongoDB connection
 mongoose
