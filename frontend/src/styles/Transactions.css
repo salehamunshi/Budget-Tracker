@@ -1,0 +1,268 @@
+/* General Layout for the Transactions Page */
+.transactions-page {
+  display: grid;
+  grid-template-columns: 1fr 3fr; /* Left column 1/4 width, right column 3/4 width */
+  padding: 2rem;
+  font-family: Impact, sans-serif;
+  color: #a96c6d;
+  background-color: #ffe3e3;
+  min-height: 100vh;
+  gap: 2rem; /* Space between columns */
+}
+
+/* Sidebar for Filters */
+.transactions-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding-right: 1rem; /* Add padding to prevent overlap */
+}
+
+/* Container for the Transaction List */
+.transaction-list-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 80vh;
+  padding-left: 1rem; /* Add left padding to prevent overlap */
+}
+
+/* Header for Transaction History */
+.transactions-sidebar h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #c38b8b;
+}
+
+/* Filter Form Styling */
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.filter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filter-form input,
+.filter-form select,
+.filter-form button {
+  padding: 0.5rem 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  border: 2px solid #c38b8b;
+  background-color: white;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.filter-form button {
+  background-color: #c38b8b;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filter-form button:hover {
+  background-color: #a96c6d;
+}
+
+/* Filter Buttons Styling */
+.filter-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Transaction List Styling */
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Individual Transaction Item Styling */
+/* Transaction List Item */
+.transaction-item {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #c38b8b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  /* Edit Button */
+  .transaction-item button {
+    background-color: #c38b8b;
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  /* Edit Button Hover Effect */
+  .transaction-item button:hover {
+    background-color: #a96c6d;
+  }
+  
+
+/* Add Transaction Button Styling */
+.add-transaction-btn {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  margin-top: 20px;
+  background-color: #c38b8b;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.add-transaction-btn:hover {
+  background-color: #a96c6d;
+}
+
+/* Loader Styling */
+.loader {
+  margin-top: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #a96c6d;
+}
+
+/* No Results Styling */
+.no-results {
+  text-align: center;
+  color: #a96c6d;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
+/* Popup Styling (For Editing Transactions) */
+.popup {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: white;
+  display: none; /* Initially hidden */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the popup */
+  width: 400px; /* Set a fixed width */
+  padding: 20px;
+  background: #c38b8b;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.popup.show {
+  display: block; /* Show the popup when class 'show' is added */
+}
+
+.popup .popup-content {
+  padding: 10px;
+}
+
+.popup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #a95c5c;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 50%;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.popup .close-btn:hover {
+  background: #b46f6f;
+}
+
+.popup h3 {
+  margin-top: 0;
+}
+
+.popup label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.popup input {
+  width: 100%;
+  padding: 8px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.popup .button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.popup button {
+  background-color: #e9c2c2;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+  gap: 10px;
+}
+
+.popup button:first-child {
+  width: auto;
+}
+
+.popup button:last-child {
+  margin-left: auto; /* Pushes the delete button to the right */
+  width: auto; /* Ensures the delete button isn't stretched */
+}
+
+.popup button:hover {
+  background-color: #dec1c1;
+}
+
+.popup select {
+  background-color: #e9c2c2;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: white;
+  width: 100%;
+  padding: 8px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #e9c2c2;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.popup select:focus {
+  border-color: #c38b8b;
+  outline: none;
+}
