@@ -4,6 +4,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const DebitCard = require("../models/DebitCard");
 const CreditCard = require("../models/CreditCard");
 const Transaction = require("../models/Transaction");
+const BudgetCategory = require("../models/BudgetCategories");
 const User = require("../models/User");
 
 // Basic user data
@@ -26,8 +27,9 @@ router.get("/summary", authMiddleware, async (req, res) => {
     const debitCards = await DebitCard.find({ userId: req.user.id });
     const creditCards = await CreditCard.find({ userId: req.user.id });
     const transactions = await Transaction.find({ userId: req.user.id });
+    const budgets = await BudgetCategory.find({ userId: req.user.id });
 
-    res.json({ debitCards, creditCards, transactions });
+    res.json({ debitCards, creditCards, transactions, budgets });
   } catch (error) {
     console.error("Error fetching user summary:", error);
     res.status(500).json({ message: "Server error" });

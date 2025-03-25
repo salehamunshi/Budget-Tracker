@@ -8,6 +8,7 @@ const userRoutes = require("./routes/user");
 const debitCardRoutes = require("./routes/debitCards");
 const creditCardRoutes = require("./routes/creditCards");
 const transactionRoutes = require("./routes/transactions");
+const budgetRoutes = require("./routes/budget");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/debitCard", debitCardRoutes);
 app.use("/api/creditCard", creditCardRoutes);
 app.use("/api/transactions", transactionRoutes);
+app.use("/api/budget", budgetRoutes);
 
 // MongoDB connection
 mongoose
