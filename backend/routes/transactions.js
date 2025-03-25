@@ -14,33 +14,33 @@ router.get("/", authMiddleware, async (req, res) => {
     endDate,
     merchant,
     description,
+    category,
   } = req.query;
 
-  // Use req.user.id (as set by authMiddleware) for user-based filtering
   const query = { userId: req.user.id };
 
-  // Numeric filters
   if (minAmount && !isNaN(minAmount)) {
     query.amount = { ...query.amount, $gte: parseFloat(minAmount) };
   }
   if (maxAmount && !isNaN(maxAmount)) {
     query.amount = { ...query.amount, $lte: parseFloat(maxAmount) };
   }
-
-  // Date filters (assuming createdAt is your date field)
   if (startDate && !isNaN(new Date(startDate))) {
     query.createdAt = { ...query.createdAt, $gte: new Date(startDate) };
   }
   if (endDate && !isNaN(new Date(endDate))) {
     query.createdAt = { ...query.createdAt, $lte: new Date(endDate) };
   }
-
-  // String filters
   if (merchant && merchant.trim() !== "") {
     query.merchant = { $regex: merchant, $options: "i" };
   }
   if (description && description.trim() !== "") {
     query.description = { $regex: description, $options: "i" };
+  }
+
+  // Filter by budgetCategoryId if a category was selected
+  if (category) {
+    query.budgetCategoryId = category;
   }
 
   try {
@@ -57,6 +57,7 @@ router.get("/", authMiddleware, async (req, res) => {
     });
   }
 });
+
 
 // POST /api/transactions (Create a transaction)
 router.post("/", authMiddleware, async (req, res) => {
