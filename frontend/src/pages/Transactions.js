@@ -12,6 +12,7 @@ const Transactions = () => {
     endDate: "",
     merchant: "",
     description: "",
+    category: "",
   });
 
   const [transactions, setTransactions] = useState([]);
@@ -65,14 +66,13 @@ const Transactions = () => {
   };
 
   // 2) Fetch budgets from /api/user/summary
-  //    We'll parse out "budgets" from the returned object.
   const fetchBudgetsFromSummary = async () => {
     try {
       const res = await axios.get("http://localhost:5001/api/user/summary", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const { budgets = [] } = res.data; // e.g. { transactions, budgets, ... }
-      setCategories(budgets); // categories now contain the same items as your Budgets page
+      const { budgets = [] } = res.data;
+      setCategories(budgets);
     } catch (error) {
       console.error("Error fetching budgets from summary:", error);
     }
@@ -82,6 +82,7 @@ const Transactions = () => {
   useEffect(() => {
     fetchTransactions(1, filters);
     fetchBudgetsFromSummary();
+    // eslint-disable-next-line
   }, []); // runs once on mount
 
   // 4) When filters change, refetch from page=1
@@ -109,12 +110,13 @@ const Transactions = () => {
     if (page > 1) {
       fetchTransactions(page, filters);
     }
+    // eslint-disable-next-line
   }, [page]);
 
   // 7) Filter changes
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
-    setTransactions([]);
+    setTransactions([]); // clear existing
   };
 
   // 8) Popup logic
@@ -193,7 +195,6 @@ const Transactions = () => {
         `http://localhost:5001/api/transactions/${editingItem._id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      // remove from local or just refetch
       setTransactions((prev) => prev.filter((tx) => tx._id !== editingItem._id));
       handlePopupClose();
     } catch (error) {
@@ -208,6 +209,7 @@ const Transactions = () => {
         <TransactionFilters
           onFilterChange={handleFilterChange}
           handlePopupOpen={handlePopupOpen}
+          categories={categories} // Pass categories to the filter
         />
       </div>
 
@@ -230,7 +232,6 @@ const Transactions = () => {
         )}
       </div>
 
-      {/* Transaction Popup Form */}
       {popupData === "transaction" && (
         <div className="popup show">
           <button className="close-btn" onClick={handlePopupClose}>
@@ -262,7 +263,6 @@ const Transactions = () => {
             onChange={handleTransactionChange}
           />
 
-          {/* Budget Category Dropdown - from /api/user/summary */}
           <label>Budget Category</label>
           <select
             name="budgetCategoryId"
@@ -270,7 +270,7 @@ const Transactions = () => {
             onChange={handleTransactionChange}
             required
           >
-            <option value="">-- Select Category --</option>
+            <option value="">Select Category</option>
             {categories.map((cat) => (
               <option key={cat._id} value={cat._id}>
                 {cat.category}
