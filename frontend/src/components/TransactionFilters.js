@@ -16,7 +16,7 @@ const TransactionFilters = ({ onFilterChange, handlePopupOpen }) => {
     const { name, value } = e.target;
     const updatedFilters = { ...localFilters, [name]: value };
     setLocalFilters(updatedFilters);
-    console.log("Local Filters:", updatedFilters); // Add this line
+
     onFilterChange(updatedFilters);
   };
 

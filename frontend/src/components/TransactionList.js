@@ -7,7 +7,8 @@ const TransactionList = ({ transactions, onEditTransaction }) => {
         transactions.map((transaction) => (
           <div key={transaction._id} className="transaction-item">
             <p>
-              {transaction.description} - £{transaction.amount} - {transaction.merchant}
+              {transaction.description} - £{transaction.amount} -{" "}
+              {transaction.merchant}
             </p>
             <button onClick={() => onEditTransaction(transaction)}>Edit</button>
           </div>

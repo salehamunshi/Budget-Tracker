@@ -28,6 +28,7 @@ const Transactions = () => {
   const loader = useRef();
   const token = localStorage.getItem("token");
 
+  // Function to fetch transactions
   const fetchTransactions = async (pageNum = 1, filterParams = {}) => {
     setLoading(true);
     try {
@@ -62,7 +63,7 @@ const Transactions = () => {
   };
 
   useEffect(() => {
-    fetchTransactions(1, filters); // Always fetch transactions when the filters change
+    fetchTransactions(1, filters);
   }, [filters]);
 
   useEffect(() => {
@@ -81,15 +82,19 @@ const Transactions = () => {
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters); // Update filters directly
     setPage(1); // Reset page to 1 when filters change
-    setTransactions([]);
+    if (Object.values(newFilters).every((value) => !value)) {
+      setTransactions([]);
+    } else {
+      setTransactions([]);
+      fetchTransactions(); 
+    }
   };
 
   // Handle opening the "Edit" popup for transactions
   const handlePopupOpen = (item = null) => {
-    console.log("Opening popup:", item);  // Debugging log
     setPopupData("transaction");
-    setEditingItem(item); 
-  
+    setEditingItem(item);
+
     if (item) {
       setNewTransaction({
         description: item.description,
@@ -100,7 +105,6 @@ const Transactions = () => {
       setNewTransaction({ description: "", amount: 0, merchant: "" });
     }
   };
-  
 
   const handlePopupClose = () => {
     setPopupData(null);
@@ -117,15 +121,10 @@ const Transactions = () => {
 
   const handleSaveTransaction = async () => {
     try {
-      const token = localStorage.getItem("token");
-
       const transactionData = {
         ...newTransaction,
         amount: parseFloat(newTransaction.amount),
       };
-
-      console.log("Creating transaction:", transactionData);
-      console.log("Type of amount:", typeof transactionData.amount);
 
       let response;
       if (editingItem) {
@@ -152,7 +151,7 @@ const Transactions = () => {
         );
       }
 
-      await fetchTransactions();
+      await fetchTransactions(1, filters);
       handlePopupClose();
     } catch (error) {
       console.error("Error saving transaction:", error);

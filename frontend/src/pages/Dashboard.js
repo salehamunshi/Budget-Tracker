@@ -197,9 +197,6 @@ const Dashboard = () => {
         amount: parseFloat(newTransaction.amount),
       };
 
-      console.log("Creating transaction:", transactionData);
-      console.log("Type of amount:", typeof transactionData.amount);
-
       let response;
       if (editingItem) {
         // Update existing transaction
