@@ -15,7 +15,7 @@ const Transactions = () => {
   });
 
   const [transactions, setTransactions] = useState([]);
-  const [popupData, setPopupData] = useState(null); // For pop-up form data (new/edit transaction)
+  const [popupData, setPopupData] = useState(null);
   const [newTransaction, setNewTransaction] = useState({
     description: "",
     amount: 0,
@@ -28,7 +28,6 @@ const Transactions = () => {
   const loader = useRef();
   const token = localStorage.getItem("token");
 
-  // Function to fetch transactions
   const fetchTransactions = async (pageNum = 1, filterParams = {}) => {
     setLoading(true);
     try {
@@ -70,7 +69,7 @@ const Transactions = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore && !loading) {
-          setPage((prev) => prev + 1); // Fetch next page when bottom is reached
+          setPage((prev) => prev + 1);
         }
       },
       { threshold: 1 }
@@ -82,12 +81,7 @@ const Transactions = () => {
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters); // Update filters directly
     setPage(1); // Reset page to 1 when filters change
-    if (Object.values(newFilters).every((value) => !value)) {
-      setTransactions([]);
-    } else {
-      setTransactions([]);
-      fetchTransactions(); 
-    }
+    setTransactions([]); // Clear current transactions before fetching new ones
   };
 
   // Handle opening the "Edit" popup for transactions
@@ -128,30 +122,20 @@ const Transactions = () => {
 
       let response;
       if (editingItem) {
-        // Update existing transaction
         response = await axios.put(
           `http://localhost:5001/api/transactions/${editingItem._id}`,
           transactionData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
-        // Create new transaction
         response = await axios.post(
           "http://localhost:5001/api/transactions",
           transactionData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
       }
 
-      await fetchTransactions(1, filters);
+      await fetchTransactions(1, filters); // Refetch transactions after saving
       handlePopupClose();
     } catch (error) {
       console.error("Error saving transaction:", error);
@@ -162,9 +146,7 @@ const Transactions = () => {
     try {
       await axios.delete(
         `http://localhost:5001/api/transactions/${editingItem._id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setTransactions((prev) =>
         prev.filter((tx) => tx._id !== editingItem._id)
