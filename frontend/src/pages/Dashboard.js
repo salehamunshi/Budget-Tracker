@@ -204,7 +204,7 @@ const Dashboard = () => {
       if (editingItem) {
         // Update existing transaction
         response = await axios.put(
-          `http://localhost:5001/api/transaction/${editingItem._id}`,
+          `http://localhost:5001/api/transactions/${editingItem._id}`,
           transactionData,
           {
             headers: {
@@ -215,7 +215,7 @@ const Dashboard = () => {
       } else {
         // Create new transaction
         response = await axios.post(
-          "http://localhost:5001/api/transaction",
+          "http://localhost:5001/api/transactions",
           transactionData,
           {
             headers: {
@@ -274,7 +274,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://localhost:5001/api/transaction/${editingItem._id}`,
+        `http://localhost:5001/api/transactions/${editingItem._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
