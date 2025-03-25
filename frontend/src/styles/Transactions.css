@@ -59,6 +59,7 @@
   background-color: white;
   border-radius: 8px;
   width: 100%;
+  color: #c38b8b;
 }
 
 .filter-form button {
@@ -87,37 +88,35 @@
 }
 
 /* Individual Transaction Item Styling */
-/* Transaction List Item */
 .transaction-item {
-    background-color: #fff;
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid #c38b8b;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  /* Edit Button */
-  .transaction-item button {
-    background-color: #c38b8b;
-    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: background-color 0.2s ease;
-  }
-  
-  /* Edit Button Hover Effect */
-  .transaction-item button:hover {
-    background-color: #a96c6d;
-  }
-  
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #c38b8b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Edit Button */
+.transaction-item button {
+  background-color: #c38b8b;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+/* Edit Button Hover Effect */
+.transaction-item button:hover {
+  background-color: #a96c6d;
+}
 
 /* Add Transaction Button Styling */
 .add-transaction-btn {

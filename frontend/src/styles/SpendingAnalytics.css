@@ -1,0 +1,42 @@
+/* Main container for the analytics page */
+.analytics-page {
+    padding: 2rem;
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    color: #a96c6d;
+    background-color: #ffe3e3;
+    min-height: 100vh; /* Ensures the page covers the full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Heading for the analytics page */
+  .analytics-page h1 {
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    color: #a96c6d;
+  }
+  
+  .chart-container {
+    position: relative; /* Helps if you use tooltips, etc. */
+    width: 900px;
+    max-width: 90%; /* Responsive shrink on smaller screens */
+    border-radius: 10px;
+    padding: 1.5rem;
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    color: #a96c6d;
+    margin: "0 auto";
+  }
+  
+  /* Ensure the chart takes up the container width */
+  .chart-container canvas {
+    width: 100% !important;
+    height: 100% !important; /* Adjust as needed */
+  }
+  
+  /* Optional: Add a small margin on top of the chart for spacing */
+  .chart-container .chartjs-render-monitor {
+    margin-top: 1rem;
+  }
+  

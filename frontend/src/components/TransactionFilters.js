@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TransactionFilters = ({ onFilterChange, handlePopupOpen }) => {
+const TransactionFilters = ({ onFilterChange, handlePopupOpen, categories }) => {
   const initialFilterState = {
     minAmount: "",
     maxAmount: "",
@@ -8,6 +8,7 @@ const TransactionFilters = ({ onFilterChange, handlePopupOpen }) => {
     endDate: "",
     merchant: "",
     description: "",
+    category: "", 
   };
 
   const [localFilters, setLocalFilters] = useState(initialFilterState);
@@ -16,7 +17,7 @@ const TransactionFilters = ({ onFilterChange, handlePopupOpen }) => {
     const { name, value } = e.target;
     const updatedFilters = { ...localFilters, [name]: value };
     setLocalFilters(updatedFilters);
-
+    // Immediately notify the parent about filter changes
     onFilterChange(updatedFilters);
   };
 
@@ -73,6 +74,21 @@ const TransactionFilters = ({ onFilterChange, handlePopupOpen }) => {
           value={localFilters.endDate}
           onChange={handleChange}
         />
+
+        {/* New Category Dropdown */}
+        <select
+          name="category"
+          value={localFilters.category}
+          onChange={handleChange}
+        >
+          <option value="">All Categories</option>
+          {categories.map((cat) => (
+            <option key={cat._id} value={cat._id}>
+              {cat.category}
+            </option>
+          ))}
+        </select>
+
         <div className="filter-buttons">
           <button type="submit">Apply Filters</button>
           <button
@@ -85,7 +101,6 @@ const TransactionFilters = ({ onFilterChange, handlePopupOpen }) => {
         </div>
       </form>
 
-      {/* Add Transaction button */}
       <button className="add-transaction-btn" onClick={() => handlePopupOpen()}>
         Add Transaction
       </button>

@@ -7,6 +7,11 @@ const TransactionSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    budgetCategoryId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "BudgetCategory",
+      required: true,
+    },
     description: {
       type: String,
       required: true,
@@ -20,7 +25,7 @@ const TransactionSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true } 
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Transaction", TransactionSchema);

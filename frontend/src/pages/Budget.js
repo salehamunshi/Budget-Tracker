@@ -138,12 +138,15 @@ const Budget = () => {
       {
         data: filteredBudgets.map((b) => b.limit),
         backgroundColor: [
-          "#ff9999",
-          "#66b3ff",
-          "#99ff99",
-          "#ffcc99",
-          "#c2c2f0",
-          "#ffb3e6",
+          "#FFB3C1",
+          "#FFCCD5",
+          "#800F2F",
+          "#FF8FA3",
+          "#A4133C",
+          "#590D22",
+          "#FF4D6D",
+          "#FF758F",
+          "#C9184A",
         ],
       },
     ],
@@ -178,16 +181,16 @@ const Budget = () => {
         </div>
 
         <div style={{ marginTop: "1rem" }}>
-          <strong>Total Budget ({selectedMonth}): £{totalBudget}</strong>
+          <strong>
+            Total Budget ({selectedMonth}): £{totalBudget}
+          </strong>
         </div>
       </div>
 
       {/* Right side: filtered budget list + chart */}
       <div className="budget-list-container">
         {filteredBudgets.length === 0 ? (
-          <p className="no-results">
-            No budgets found for {selectedMonth}
-          </p>
+          <p className="no-results">No budgets found for {selectedMonth}</p>
         ) : (
           filteredBudgets.map((b) => (
             <div className="budget-item" key={b._id}>
