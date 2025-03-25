@@ -75,14 +75,18 @@ const TransactionFilters = ({ onFilterChange, handlePopupOpen }) => {
         />
         <div className="filter-buttons">
           <button type="submit">Apply Filters</button>
-          <button type="button" onClick={handleClear} className="clear-filters-btn">
+          <button
+            type="button"
+            onClick={handleClear}
+            className="clear-filters-btn"
+          >
             Clear Filters
           </button>
         </div>
       </form>
 
       {/* Add Transaction button */}
-      <button className="add-transaction-btn" onClick={handlePopupOpen}>
+      <button className="add-transaction-btn" onClick={() => handlePopupOpen()}>
         Add Transaction
       </button>
     </div>

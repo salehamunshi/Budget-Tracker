@@ -86,22 +86,21 @@ const Transactions = () => {
 
   // Handle opening the "Edit" popup for transactions
   const handlePopupOpen = (item = null) => {
-    setPopupData("transaction"); // Open the "transaction" popup
-    setEditingItem(item); // Set the item to edit, or `null` if it's a new transaction
+    console.log("Opening popup:", item);  // Debugging log
+    setPopupData("transaction");
+    setEditingItem(item); 
   
     if (item) {
-      // If an item is passed (for editing), set the fields to the current transaction values
       setNewTransaction({
         description: item.description,
         amount: item.amount,
         merchant: item.merchant,
       });
     } else {
-      // If no item is passed (for creating), reset the form fields
       setNewTransaction({ description: "", amount: 0, merchant: "" });
     }
   };
-   
+  
 
   const handlePopupClose = () => {
     setPopupData(null);
@@ -118,10 +117,15 @@ const Transactions = () => {
 
   const handleSaveTransaction = async () => {
     try {
+      const token = localStorage.getItem("token");
+
       const transactionData = {
         ...newTransaction,
         amount: parseFloat(newTransaction.amount),
       };
+
+      console.log("Creating transaction:", transactionData);
+      console.log("Type of amount:", typeof transactionData.amount);
 
       let response;
       if (editingItem) {
@@ -129,22 +133,26 @@ const Transactions = () => {
         response = await axios.put(
           `http://localhost:5001/api/transactions/${editingItem._id}`,
           transactionData,
-          { headers: { Authorization: `Bearer ${token}` } }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
       } else {
         // Create new transaction
         response = await axios.post(
           "http://localhost:5001/api/transactions",
           transactionData,
-          { headers: { Authorization: `Bearer ${token}` } }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
       }
 
-      setTransactions((prev) =>
-        editingItem
-          ? prev.map((tx) => (tx._id === editingItem._id ? response.data : tx))
-          : [response.data, ...prev]
-      );
+      await fetchTransactions();
       handlePopupClose();
     } catch (error) {
       console.error("Error saving transaction:", error);
@@ -204,6 +212,7 @@ const Transactions = () => {
             X
           </button>
           <h3>{editingItem ? "Edit Transaction" : "Create Transaction"}</h3>
+
           <label>Description</label>
           <input
             type="text"
