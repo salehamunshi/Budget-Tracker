@@ -25,8 +25,9 @@ app.use("/api/transactions", transactionRoutes);
 app.use("/api/budget", budgetRoutes);
 
 // MongoDB connection
+const mongoURI = process.env.MONGO_URI;
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
