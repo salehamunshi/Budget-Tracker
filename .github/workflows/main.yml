@@ -39,7 +39,7 @@ jobs:
         working-directory: ./backend
         run: npm run dev
         env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}  # MongoDB URI from GitHub Secrets
+          MONGODB_URI: ${{ secrets.MONGO_URI }}  # MongoDB URI from GitHub Secrets
           JWT_SECRET: ${{ secrets.JWT_SECRET }}  # JWT Secret from GitHub Secrets
 
   # Frontend Job
