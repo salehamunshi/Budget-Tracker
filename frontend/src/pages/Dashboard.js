@@ -126,7 +126,7 @@ const Dashboard = () => {
       let response;
       if (editingItem) {
         response = await axios.put(
-          `${backendURL}/api/debitCards/${editingItem._id}`,
+          `${backendURL}/api/debitCard/${editingItem._id}`,
           newDebitCard,
           {
             headers: {
@@ -136,7 +136,7 @@ const Dashboard = () => {
         );
       } else {
         response = await axios.post(
-          `${backendURL}/api/debitCards`,
+          `${backendURL}/api/debitCard`,
           newDebitCard,
           {
             headers: {
@@ -233,7 +233,7 @@ const Dashboard = () => {
   const handleDeleteDebitCard = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`${backendURL}/api/debitCards/${editingItem._id}`, {
+      await axios.delete(`${backendURL}/api/debitCard/${editingItem._id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
