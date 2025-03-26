@@ -70,6 +70,9 @@ jobs:
         working-directory: ./frontend
         run: npm start
 
+      - name: Set Backend URL for React
+        run: echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}"
+
       - name: Deploy Frontend to Render
         uses: render-examples/render-deploy@v1
         with:
