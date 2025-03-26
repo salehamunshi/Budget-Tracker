@@ -37,6 +37,14 @@ jobs:
           MONGODB_URI: ${{ secrets.MONGO_URI }}  # MongoDB URI from GitHub Secrets
           JWT_SECRET: ${{ secrets.JWT_SECRET }}  # JWT Secret from GitHub Secrets
 
+      - name: Deploy Backend to Render
+        uses: render-examples/render-deploy@v1
+        with:
+          service: 'backend'
+          render_token: ${{ secrets.RENDER_TOKEN_BACKEND }}  # Backend token from GitHub Secrets
+        env:
+          RENDER_API_TOKEN: ${{ secrets.RENDER_TOKEN_BACKEND }} 
+
   # Frontend Job
   frontend:
     runs-on: ubuntu-latest
@@ -61,3 +69,11 @@ jobs:
       - name: Run Frontend
         working-directory: ./frontend
         run: npm start
+
+      - name: Deploy Frontend to Render
+        uses: render-examples/render-deploy@v1
+        with:
+          service: 'frontend'
+          render_token: ${{ secrets.RENDER_TOKEN_FRONTEND }}  # Frontend token from GitHub Secrets
+        env:
+          RENDER_API_TOKEN: ${{ secrets.RENDER_TOKEN_FRONTEND }}
