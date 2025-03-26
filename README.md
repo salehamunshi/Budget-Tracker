@@ -33,6 +33,8 @@ The Budget Tracker App helps users organize their finances by allowing them to t
 
 ### Deployment
 - The app is deployed using [Render](https://render.com), with both the frontend and backend hosted on their platform, ensuring smooth and reliable access for users.
+- **Live Application URL**: [https://budget-tracker.onrender.com](https://budget-tracker-1-pz3a.onrender.com/)]
+- Bakend URL: [https://budget-tracker-kddj.onrender.com/](https://budget-tracker-kddj.onrender.com/)
 
 ## Installation & Usage Instructions
 
