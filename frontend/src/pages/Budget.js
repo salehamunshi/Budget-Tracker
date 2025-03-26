@@ -6,6 +6,7 @@ import Chart from "chart.js/auto";
 import "../styles/Budget.css"; // Your dedicated Budget page CSS
 
 const Budget = () => {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [budgets, setBudgets] = useState([]);
   const [popupData, setPopupData] = useState(null);
   const [editingItem, setEditingItem] = useState(null);
@@ -30,7 +31,7 @@ const Budget = () => {
   const fetchBudgets = async () => {
     try {
       // /api/user/summary returns { budgets, ... }
-      const res = await axios.get("http://localhost:5001/api/user/summary", {
+      const res = await axios.get(`${backendURL}/api/user/summary`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const { budgets = [] } = res.data;
@@ -83,7 +84,7 @@ const Budget = () => {
       if (editingItem) {
         // Update existing
         const res = await axios.put(
-          `http://localhost:5001/api/budget/${editingItem._id}`,
+          `${backendURL}/api/budget/${editingItem._id}`,
           newBudget,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -94,7 +95,7 @@ const Budget = () => {
       } else {
         // Create new
         const res = await axios.post(
-          "http://localhost:5001/api/budget/add",
+          `${backendURL}/api/budget/add`,
           newBudget,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -112,7 +113,7 @@ const Budget = () => {
     if (!editingItem) return;
     try {
       await axios.delete(
-        `http://localhost:5001/api/budget/${editingItem._id}`,
+        `${backendURL}/api/budget/${editingItem._id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setBudgets((prev) => prev.filter((b) => b._id !== editingItem._id));

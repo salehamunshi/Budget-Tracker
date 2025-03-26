@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import "../styles/Signup.css";
 
 const Signup = () => {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -76,7 +77,7 @@ const Signup = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5001/api/auth/signup", {
+      const res = await axios.post(`${backendURL}/api/auth/signup`, {
         username: formData.username,
         email: formData.email,
         password: formData.password,
