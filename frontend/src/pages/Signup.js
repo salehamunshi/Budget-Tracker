@@ -77,16 +77,16 @@ const Signup = () => {
     }
 
     try {
-      const res = await axios.post(`${backendURL}/api/auth/signup`, {
+      // Signup API call
+      const signupRes = await axios.post(`${backendURL}/api/auth/signup`, {
         username: formData.username,
         email: formData.email,
         password: formData.password,
       });
 
-      // Assuming the API returns a token upon successful signup
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token); // Store token in localStorage
-        navigate("/login");
+      // If signup is successful, redirect to login page
+      if (signupRes.status === 201) {
+        navigate("/login"); // Redirect to the login page after signup
       }
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong.");
