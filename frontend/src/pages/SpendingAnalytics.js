@@ -5,6 +5,7 @@ import Chart from "chart.js/auto";
 import "../styles/SpendingAnalytics.css";
 
 const SpendingAnalytics = () => {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [budgets, setBudgets] = useState([]);
   const [transactions, setTransactions] = useState([]);
 
@@ -16,7 +17,7 @@ const SpendingAnalytics = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/api/user/summary", {
+      const res = await axios.get(`${backendURL}/api/user/summary`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const { budgets = [], transactions = [] } = res.data;

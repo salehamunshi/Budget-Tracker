@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import "../styles/Login.css";
 
 const Login = ({ setIsLoggedIn }) => {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +23,7 @@ const Login = ({ setIsLoggedIn }) => {
     try {
       // Send the login data to the backend API
       const res = await axios.post(
-        "http://localhost:5001/api/auth/login", // Make sure this endpoint is correct
+        `${backendURL}/api/auth/login`, // Make sure this endpoint is correct
         formData
       );
 

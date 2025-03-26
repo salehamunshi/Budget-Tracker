@@ -5,6 +5,7 @@ import TransactionList from "../components/TransactionList";
 import "../styles/Transactions.css";
 
 const Transactions = () => {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [filters, setFilters] = useState({
     minAmount: "",
     maxAmount: "",
@@ -44,7 +45,7 @@ const Transactions = () => {
         ...filterParams,
       };
 
-      const res = await axios.get("http://localhost:5001/api/transactions", {
+      const res = await axios.get(`${backendURL}/api/transactions`, {
         headers: { Authorization: `Bearer ${token}` },
         params,
       });
@@ -68,7 +69,7 @@ const Transactions = () => {
   // 2) Fetch budgets from /api/user/summary
   const fetchBudgetsFromSummary = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/api/user/summary", {
+      const res = await axios.get(`${backendURL}/api/user/summary`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const { budgets = [] } = res.data;
@@ -168,13 +169,13 @@ const Transactions = () => {
       if (editingItem) {
         // Update existing
         await axios.put(
-          `http://localhost:5001/api/transactions/${editingItem._id}`,
+          `${backendURL}/api/transactions/${editingItem._id}`,
           transactionData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
         // Create new
-        await axios.post("http://localhost:5001/api/transactions", transactionData, {
+        await axios.post(`${backendURL}/api/transactions`, transactionData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
@@ -192,7 +193,7 @@ const Transactions = () => {
     if (!editingItem) return;
     try {
       await axios.delete(
-        `http://localhost:5001/api/transactions/${editingItem._id}`,
+        `${backendURL}/api/transactions/${editingItem._id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setTransactions((prev) => prev.filter((tx) => tx._id !== editingItem._id));

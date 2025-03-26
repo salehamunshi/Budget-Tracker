@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Dashboard.css";
 
 const Dashboard = () => {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [userData, setUserData] = useState({ debitCards: [], creditCards: [] });
   const [transactions, setTransactions] = useState([]);
   const [popupData, setPopupData] = useState(null); // To control which popup to show (create or edit)
@@ -28,7 +29,7 @@ const Dashboard = () => {
     }
 
     axios
-      .get("http://localhost:5001/api/user/summary", {
+      .get(`${backendURL}/api/user/summary`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -125,7 +126,7 @@ const Dashboard = () => {
       let response;
       if (editingItem) {
         response = await axios.put(
-          `http://localhost:5001/api/debitCards/${editingItem._id}`,
+          `${backendURL}/api/debitCards/${editingItem._id}`,
           newDebitCard,
           {
             headers: {
@@ -135,7 +136,7 @@ const Dashboard = () => {
         );
       } else {
         response = await axios.post(
-          "http://localhost:5001/api/debitCards",
+          `${backendURL}/api/debitCards`,
           newDebitCard,
           {
             headers: {
@@ -160,7 +161,7 @@ const Dashboard = () => {
       if (editingItem) {
         // Update existing credit card
         response = await axios.put(
-          `http://localhost:5001/api/creditCard/${editingItem._id}`,
+          `${backendURL}/api/creditCard/${editingItem._id}`,
           newCreditCard,
           {
             headers: {
@@ -171,7 +172,7 @@ const Dashboard = () => {
       } else {
         // Create new credit card
         response = await axios.post(
-          "http://localhost:5001/api/creditCard",
+          `${backendURL}/api/creditCard`,
           newCreditCard,
           {
             headers: {
@@ -201,7 +202,7 @@ const Dashboard = () => {
       if (editingItem) {
         // Update existing transaction
         response = await axios.put(
-          `http://localhost:5001/api/transactions/${editingItem._id}`,
+          `${backendURL}/api/transactions/${editingItem._id}`,
           transactionData,
           {
             headers: {
@@ -212,7 +213,7 @@ const Dashboard = () => {
       } else {
         // Create new transaction
         response = await axios.post(
-          "http://localhost:5001/api/transactions",
+          `${backendURL}/api/transactions`,
           transactionData,
           {
             headers: {
@@ -232,14 +233,11 @@ const Dashboard = () => {
   const handleDeleteDebitCard = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(
-        `http://localhost:5001/api/debitCards/${editingItem._id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.delete(`${backendURL}/api/debitCards/${editingItem._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       await fetchData();
       handlePopupClose();
     } catch (error) {
@@ -252,7 +250,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://localhost:5001/api/creditCard/${editingItem._id}`,
+        `${backendURL}/api/creditCard/${editingItem._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -271,7 +269,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://localhost:5001/api/transactions/${editingItem._id}`,
+        `${backendURL}/api/transactions/${editingItem._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -290,7 +288,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:5001/api/user/summary",
+        `${backendURL}/api/user/summary`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
