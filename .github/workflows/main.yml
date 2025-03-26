@@ -65,6 +65,9 @@ jobs:
         working-directory: ./frontend
         run: npm install
 
+      - name: Set Backend URL for React
+        run: echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}"
+
       # Run frontend server (for development environment)
       - name: Run Frontend
         working-directory: ./frontend
