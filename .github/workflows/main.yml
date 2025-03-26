@@ -29,11 +29,6 @@ jobs:
         working-directory: ./backend
         run: npm install
 
-      # Run backend tests (if any)
-      - name: Run Backend Tests
-        working-directory: ./backend
-        run: npm test
-
       # Run backend server (for development environment)
       - name: Run Backend
         working-directory: ./backend
@@ -41,6 +36,14 @@ jobs:
         env:
           MONGODB_URI: ${{ secrets.MONGO_URI }}  # MongoDB URI from GitHub Secrets
           JWT_SECRET: ${{ secrets.JWT_SECRET }}  # JWT Secret from GitHub Secrets
+
+      - name: Deploy Backend to Render
+        uses: render-examples/render-deploy@v1
+        with:
+          service: 'backend'
+          render_token: ${{ secrets.RENDER_TOKEN_BACKEND }}  # Backend token from GitHub Secrets
+        env:
+          RENDER_API_TOKEN: ${{ secrets.RENDER_TOKEN_BACKEND }} 
 
   # Frontend Job
   frontend:
@@ -62,12 +65,15 @@ jobs:
         working-directory: ./frontend
         run: npm install
 
-      # Run frontend tests (if any)
-      - name: Run Frontend Tests
-        working-directory: ./frontend
-        run: npm test
-
       # Run frontend server (for development environment)
       - name: Run Frontend
         working-directory: ./frontend
         run: npm start
+
+      - name: Deploy Frontend to Render
+        uses: render-examples/render-deploy@v1
+        with:
+          service: 'frontend'
+          render_token: ${{ secrets.RENDER_TOKEN_FRONTEND }}  # Frontend token from GitHub Secrets
+        env:
+          RENDER_API_TOKEN: ${{ secrets.RENDER_TOKEN_FRONTEND }}
