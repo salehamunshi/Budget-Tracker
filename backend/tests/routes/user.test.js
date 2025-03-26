@@ -1,97 +1,49 @@
 const request = require("supertest");
-const app = require("../../server");
-const mongoose = require("mongoose");
-const User = require("../../models/User");
-const DebitCard = require("../../models/DebitCard");
-const CreditCard = require("../../models/CreditCard");
-const Transaction = require("../../models/Transaction");
-const BudgetCategory = require("../../models/BudgetCategories");
+const express = require("express");
+const app = express();
+const router = require("../../routes/user"); // Adjust to your router file path
+const User = require("../../models/User"); // Make sure the path to User model is correct
 
+// Mock authMiddleware
 jest.mock("../../middleware/authMiddleware", () => {
   return jest.fn((req, res, next) => {
-    req.user = { id: 'mockedUserId' }; // Mock user ID
+    req.user = { id: "mockedUserId" }; // Mock the user ID
     next();
   });
 });
 
-describe("User Routes", () => {
-  let userId;
-  let debitCardId;
-  let creditCardId;
-  let transactionId;
-  let budgetCategoryId;
+// Mock User model
+jest.mock("../../models/User", () => {
+  return {
+    findById: jest.fn().mockResolvedValue({ id: "mockedUserId", username: "testuser" }), // Mocked user data
+  };
+});
 
-  beforeAll(async () => {
-    // Create mock user
-    const user = new User({
-      username: "john_doe",
-      email: "johndoe@example.com",
-      password: "password123",
-    });
-    await user.save();
-    userId = user._id;
+// Apply the router to the app
+app.use("/api", router);
 
-    // Create mock debit card
-    const debitCard = new DebitCard({
-      name: "John's Debit Card",
-      balance: 0,
-      userId: userId,
-    });
-    await debitCard.save();
-    debitCardId = debitCard._id;
+describe("User Data Routes", () => {
+  it("should return user data with status 200", async () => {
+    const response = await request(app).get("/api/data"); // Make a GET request to the /data route
 
-    // Create mock credit card
-    const creditCard = new CreditCard({
-      name: "John's Credit Card",
-      balance: 0,
-      userId: userId,
-    });
-    await creditCard.save();
-    creditCardId = creditCard._id;
+    // Assert the response status is 200
+    expect(response.status).toBe(200);
 
-    // Create mock transaction
-    const transaction = new Transaction({
-      userId: userId,
-      budgetCategoryId: new mongoose.Types.ObjectId(),
-      description: "Transaction description",
-      amount: 100,
-      merchant: "Merchant Name",
-    });
-    await transaction.save();
-    transactionId = transaction._id;
-
-    // Create mock budget category
-    const budgetCategory = new BudgetCategory({
-      userId: userId,
-      category: "Groceries",
-      limit: 500,
-      month: "March",
-    });
-    await budgetCategory.save();
-    budgetCategoryId = budgetCategory._id;
+    // Assert the response body contains the mocked user data
+    expect(response.body).toHaveProperty("id", "mockedUserId");
+    expect(response.body).toHaveProperty("username", "testuser");
   });
 
-  afterAll(async () => {
-    // Clean up the database
-    await User.deleteMany({});
-    await DebitCard.deleteMany({});
-    await CreditCard.deleteMany({});
-    await Transaction.deleteMany({});
-    await BudgetCategory.deleteMany({});
-    mongoose.connection.close();
-  });
+  it("should return 404 if user is not found", async () => {
+    // Mock User.findById to return null (user not found)
+    User.findById.mockResolvedValue(null);
 
-  it("should return 500 on server error", async () => {
-    // Mocking a server error by throwing inside the route
-    jest.spyOn(DebitCard, "find").mockImplementationOnce(() => {
-      throw new Error("Server error");
-    });
+    const response = await request(app).get("/api/data");
 
-    const response = await request(app) // Using the `app` from server.js
-      .get("/api/user/summary")
-      .set("Authorization", "Bearer mocktoken");
+    // Assert the response status is 404
+    expect(response.status).toBe(404);
 
-    expect(response.status).toBe(500);
-    expect(response.body.message).toBe("Server error");
+    // Assert the response body contains the error message
+    expect(response.body).toHaveProperty("message", "User not found");
   });
 });
