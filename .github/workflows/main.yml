@@ -1,0 +1,73 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # Backend Job
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Node.js environment for backend
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+
+      # Install backend dependencies
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: npm install
+
+      # Run backend tests (if any)
+      - name: Run Backend Tests
+        working-directory: ./backend
+        run: npm test
+
+      # Run backend server (for development environment)
+      - name: Run Backend
+        working-directory: ./backend
+        run: npm run dev
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}  # MongoDB URI from GitHub Secrets
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}  # JWT Secret from GitHub Secrets
+
+  # Frontend Job
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Node.js environment for frontend
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+
+      # Install frontend dependencies
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      # Run frontend tests (if any)
+      - name: Run Frontend Tests
+        working-directory: ./frontend
+        run: npm test
+
+      # Run frontend server (for development environment)
+      - name: Run Frontend
+        working-directory: ./frontend
+        run: npm start
